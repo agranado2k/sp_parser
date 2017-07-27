@@ -1,22 +1,14 @@
 require "test_helper"
 
-class Parser
-  def split_page_and_ip(line)
-    parts = line.split(" ")
-    {page: parts[0], ip: parts[1]}
-  end
-
-  def include_ip_page_list(page_ip_list, entry)
-    page_ip_list[entry[:page]] = page_ip_list.fetch(entry[:page],[]) << entry[:ip]
-    page_ip_list
-  end
-end
-
 class ParserTest < Minitest::Test
+  def setup
+    @parser = Parser.new
+  end
+
   def test_split_simple_page_and_ip
     line = "/home 184.123.665.067"
 
-    result = Parser.new.split_page_and_ip(line)
+    result = @parser.split_page_and_ip(line)
 
     assert_equal result, {page: "/home", ip: "184.123.665.067"}
   end
@@ -24,7 +16,7 @@ class ParserTest < Minitest::Test
   def test_split_nested_page_and_ip
     line = "/about/2 444.701.448.104"
 
-    result = Parser.new.split_page_and_ip(line)
+    result = @parser.split_page_and_ip(line)
 
     assert_equal result, {page: "/about/2", ip: "444.701.448.104"}
   end
@@ -33,7 +25,7 @@ class ParserTest < Minitest::Test
     entry = {page: "/home", ip: "184.123.665.067"}
     page_ip_list = {}
 
-    page_ip_list = Parser.new.include_ip_page_list(page_ip_list, entry)
+    page_ip_list = @parser.include_ip_page_list(page_ip_list, entry)
 
     assert_equal page_ip_list, {"/home" => ["184.123.665.067"]}
   end
@@ -45,10 +37,28 @@ class ParserTest < Minitest::Test
                 {page: "/home", ip: "184.123.665.067"}]
 
     entries.each do |entry|
-      page_views = Parser.new.include_ip_page_list(page_views, entry)
+      page_views = @parser.include_ip_page_list(page_views, entry)
     end
 
     assert_equal page_views, {"/home" => ["184.123.665.067","184.123.665.067"],
                               "/about/2" => ["444.701.44.104"]}
+  end
+
+  def test_collect_page_views
+    page_ip_list = {"/home" => ["184.123.665.067","184.123.665.067"],
+                    "/about/2" => ["444.701.44.104"]}
+
+    page_views = @parser.page_views(page_ip_list)
+
+    assert_equal page_views, {"/home" => 2, "/about/2" => 1}
+  end
+
+  def test_collect_page_unique_visit
+    page_ip_list = {"/home" => ["184.123.665.067","184.123.665.067"],
+                    "/about/2" => ["444.701.44.104"]}
+
+    page_unique_visit = @parser.page_unique_visit(page_ip_list)
+
+    assert_equal page_unique_visit, {"/home" => 1, "/about/2" => 1}
   end
 end
