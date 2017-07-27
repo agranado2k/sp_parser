@@ -2,7 +2,7 @@ require "test_helper"
 
 class ParserTest < Minitest::Test
   def setup
-    @parser = Parser.new
+    @parser = SmartPension::LogParser.new
   end
 
   def test_split_simple_page_and_ip
