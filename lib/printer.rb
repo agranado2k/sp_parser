@@ -1,17 +1,18 @@
 class Printer
+  VISITS = "visits"
+  UNIQUE_VIEWS = "unique views"
+
   def print_page_views(page_info)
-    print(page_info, "visits")
+    print(page_info, VISITS)
   end
 
   def print_page_unique(page_info)
-    print(page_info, "unique views")
+    print(page_info, UNIQUE_VIEWS)
   end
 
   def print(page_info, sufix)
-    result = ""
-    page_info.each do |p, v|
-      result += "#{p} #{v} #{sufix}\n"
+    page_info.reduce("") do |r, (p, v)|
+      r += "#{p} #{v} #{sufix}\n"
     end
-    result
   end
 end
