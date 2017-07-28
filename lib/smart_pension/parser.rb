@@ -1,5 +1,5 @@
 module SmartPension
-  class LogParser
+  class Parser
     def split_page_and_ip(line)
       parts = line.split(" ")
       {page: parts[0], ip: parts[1]}
