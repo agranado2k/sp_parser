@@ -1,7 +1,9 @@
 module SmartPension
   class Parser
-    def from_entries(entries)
-      entries.reduce({}){|r, entry| r = from_entry(r, entry)}
+    def parse_file(lines)
+      lines.reduce({}) do |r, line|
+        r = from_entry(r, split_page_and_ip(line))
+      end
     end
 
     def from_entry(page_ip_list, entry)
