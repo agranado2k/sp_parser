@@ -1,3 +1,4 @@
+nstructions
 This test should not take you longer than two hours to complete. 
 
 What we are looking for: functionality, efficiency, readability and tests
@@ -23,4 +24,10 @@ b. Returns the following:
          /about/2   8 unique views
          /index     5 unique views
          etc...
+         
+### How to test
+To test you can execute the command **rake**. After the test execution you can take a look in test coverage on **coverage/index.html**.
+
+### How to run
+To run you execute the command **./bin/parser.rb logs/webserver.log** or the command **ruby bin/parser.rb logs/webserver.log**.
 
