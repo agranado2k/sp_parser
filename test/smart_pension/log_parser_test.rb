@@ -43,22 +43,4 @@ class ParserTest < Minitest::Test
     assert_equal page_views, {"/home" => ["184.123.665.067","184.123.665.067"],
                               "/about/2" => ["444.701.44.104"]}
   end
-
-  def test_collect_page_views
-    page_ip_list = {"/home" => ["184.123.665.067","184.123.665.067"],
-                    "/about/2" => ["444.701.44.104"]}
-
-    page_views = @parser.page_views(page_ip_list)
-
-    assert_equal page_views, {"/home" => 2, "/about/2" => 1}
-  end
-
-  def test_collect_page_unique_visit
-    page_ip_list = {"/home" => ["184.123.665.067","184.123.665.067"],
-                    "/about/2" => ["444.701.44.104"]}
-
-    page_unique_visit = @parser.page_unique_visit(page_ip_list)
-
-    assert_equal page_unique_visit, {"/home" => 1, "/about/2" => 1}
-  end
 end
