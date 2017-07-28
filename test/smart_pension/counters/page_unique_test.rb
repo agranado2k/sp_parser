@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PageUniqueCounterTest < Minitest::Test
+  include CounterInterfaceTest
+
   def setup
     info = {"/home" => ["184.123.665.067","184.123.665.067"],
            "/about/2" => ["444.701.44.104"]}
