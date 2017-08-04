@@ -5,6 +5,7 @@ require_relative "./smart_pension/counters/unknown_type_error"
 require_relative "./smart_pension/printer"
 require_relative "./smart_pension/printers/page_views"
 require_relative "./smart_pension/printers/page_unique"
+require_relative "./smart_pension/printers/unknown_type_error"
 require_relative "./smart_pension/parser"
 require_relative "./smart_pension/sp_log_parser"
 

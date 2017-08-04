@@ -8,10 +8,10 @@ module SmartPension
     end
 
     def self.for(info, type)
-      if type == "page_views"
-        Printers::PageViews.new(info)
-      else
-        Printers::PageUnique.new(info)
+      begin
+        const_get("SmartPension::Printers::#{type.split("_").collect(&:capitalize).join}").new(info)
+      rescue NameError
+        fail SmartPension::Printers::UnknownTypeError, "There is no type #{type}"
       end
     end
   end
