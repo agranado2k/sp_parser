@@ -7,10 +7,10 @@ module SmartPension
     end
 
     def self.for(info, type)
-      if type == "page_views"
-        SmartPension::Counters::PageViews.new(info)
-      else
-        SmartPension::Counters::PageUnique.new(info)
+      begin
+        const_get("SmartPension::Counters::#{type.split("_").collect(&:capitalize).join}").new(info)
+      rescue NameError
+        fail SmartPension::Counters::UnknownTypeError, "There is no type #{type}"
       end
     end
   end
