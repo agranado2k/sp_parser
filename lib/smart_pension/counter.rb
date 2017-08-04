@@ -8,7 +8,7 @@ module SmartPension
 
     def self.for(info, type)
       if type == "page_views"
-        SmartPension::Counters::PageView.new(info)
+        SmartPension::Counters::PageViews.new(info)
       else
         SmartPension::Counters::PageUnique.new(info)
       end

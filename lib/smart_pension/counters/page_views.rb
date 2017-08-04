@@ -1,6 +1,6 @@
 module SmartPension
   module Counters
-    class PageView < Counter
+    class PageViews < Counter
     def execute
       info.reduce({}){|r, (k,v)| r[k] = v.size; r}
     end
