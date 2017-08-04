@@ -2,7 +2,14 @@ require "test_helper"
 
 class ParserTest < Minitest::Test
   def setup
-    @parser = SmartPension::Parser.new
+    log_lines = [
+        "/help_page/1 126.318.035.038",
+        "/contact 184.123.665.067",
+        "/home 184.123.665.067",
+        "/about/2 444.701.448.104",
+        "/help_page/1 929.398.951.889"]
+
+    @parser = SmartPension::Parser.new(log_lines)
   end
 
   def test_split_simple_page_and_ip
@@ -52,7 +59,7 @@ class ParserTest < Minitest::Test
         "/about/2 444.701.448.104",
         "/help_page/1 929.398.951.889"]
 
-    data = @parser.parse_file(lines_from_log_file)
+    data = @parser.parse_file
 
     assert_equal data, {"/help_page/1"=>["126.318.035.038", "929.398.951.889"],
                        "/contact"=>["184.123.665.067"],

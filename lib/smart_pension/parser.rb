@@ -1,6 +1,12 @@
 module SmartPension
   class Parser
-    def parse_file(lines)
+    attr_accessor :lines
+
+    def initialize(lines)
+      @lines = lines
+    end
+
+    def parse_file
       lines.reduce({}) do |r, line|
         r = from_entry(r, split_page_and_ip(line))
       end
